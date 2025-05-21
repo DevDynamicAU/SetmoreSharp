@@ -2,7 +2,7 @@
 
 namespace SetmoreSharp
 {
-    public record SetmoreTokenResponse
+    public record SetmoreToken
     {
         [JsonPropertyName("access_token")]
         public string AccessToken { get; init; }
@@ -15,6 +15,13 @@ namespace SetmoreSharp
 
         [JsonPropertyName("user_id")]
         public string UserId { get; init; }
+
+        // <-- new raw epoch‐ms field
+        [JsonPropertyName("expires")]
+        public long ExpiresEpoch { get; init; }
+
+        [JsonIgnore]
+        public DateTime ExpiresAt => DateTimeOffset.FromUnixTimeMilliseconds(ExpiresEpoch).UtcDateTime;
 
         [JsonIgnore]
         public string RefreshToken { get; init; }

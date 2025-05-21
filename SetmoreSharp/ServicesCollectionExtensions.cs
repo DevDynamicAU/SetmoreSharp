@@ -52,7 +52,7 @@ namespace SetmoreSharp.Web
 
             services.AddHttpClient(ApiClient.ClientName, client =>
             {
-                var baseUrl = $"{baseEndpoint}/{apiVersion}";
+                var baseUrl = $"{baseEndpoint}/{apiVersion}/bookingapi/";
                 client.BaseAddress = new Uri(baseUrl);
 
                 client.DefaultRequestHeaders.Accept.Clear();

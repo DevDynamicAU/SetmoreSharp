@@ -50,7 +50,10 @@ namespace Setmore.Tester
 
             if (doTestsResp.ToString().ToLower() == "y")
             {
-                await ServiceTestsAsync();
+                //await ServiceTestsAsync();
+                //await StaffTestsAsync();
+                await TimeSlotTestsAsync();
+
                 WriteLine("End");
             }
             else

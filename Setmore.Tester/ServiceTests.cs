@@ -6,11 +6,13 @@ namespace Setmore.Tester
     {
         public static async Task ServiceTestsAsync()
         {
-            Program.WriteLine("BEGIN PositionTests");
+            Program.WriteLine("BEGIN ServiceTests");
 
-            await ServiceTests.GetAllServicesAsync(_client);
+            //await ServiceTests.GetServicesAsync(_client);
+            //await ServiceTests.GetServiceCategoriesAsync(_client);
+            await ServiceTests.GetServicesByCategoryAsync(_client);
 
-            WriteLine("END PositionTests");
+            WriteLine("END ServiceTests");
         }
     }
 }

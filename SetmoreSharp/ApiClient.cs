@@ -17,7 +17,7 @@ namespace SetmoreSharp
             _jsonSerializerOptions = Helpers.JsonSerializerOptions;
         }
 
-        protected async Task<T> GetAsync<T>(Request request)
+        protected async Task<T> GetAsync<T>(Request request) where T : class
         {
             var client = _httpClientFactory.CreateClient(ClientName);
             var message = new HttpRequestMessage(HttpMethod.Get, request.GetUrl());
@@ -32,13 +32,32 @@ namespace SetmoreSharp
 
             if (response.IsSuccessStatusCode)
             {
-                var result = JsonSerializer.Deserialize<T>(data, _jsonSerializerOptions);
+                var result = Helpers.DeserialiseResponse<T>(data, _jsonSerializerOptions); //JsonSerializer.Deserialize<T>(data, _jsonSerializerOptions);
                 return result;
             }
             else
             {
                 throw new Exception($"{response.StatusCode} - {response.ReasonPhrase}, accessing {response.RequestMessage?.RequestUri}");
             }
+        }
+
+        protected async Task<T> PostAsync<T, F>(Request request, ApiBody<F> content) where T : class
+        {
+            var client = _httpClientFactory.CreateClient(ClientName);
+            var url = request.GetUrl();
+            var httpContent = CreateHttpContent(content.Content);
+
+            var response = await client.PostAsync(url, httpContent);
+            var data = await response.Content.ReadAsStringAsync();
+
+            var apiResponse = JsonSerializer.Deserialize<ApiResponse<T>>(data, _jsonSerializerOptions);
+
+            if (!response.IsSuccessStatusCode && apiResponse != null)
+            {
+                throw new Exception($"Error in request - isSuccessCode: {response.IsSuccessStatusCode}");
+            }
+
+            return apiResponse.Data;
         }
 
         protected async Task<T> PostAsync<T>(Request request, object content)

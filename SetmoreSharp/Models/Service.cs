@@ -4,6 +4,9 @@ namespace SetmoreSharp.Models
 {
     public class Service
     {
+        [JsonIgnore]
+        public string Id => Key;
+
         [JsonPropertyName("key")]
         public string Key { get; set; }
 

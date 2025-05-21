@@ -1,5 +1,4 @@
 ﻿using Duende.IdentityModel.Client;
-using SetmoreSharp.Models;
 using System.Text.Json;
 
 namespace SetmoreSharp
@@ -9,7 +8,7 @@ namespace SetmoreSharp
         private readonly ClientCredentials _clientCredentials;
         private readonly IHttpClientFactory _httpClientFactory;
 
-        private SetmoreTokenResponse _token;
+        private SetmoreToken _token;
 
         private DateTime _expiryTime;
 
@@ -53,7 +52,8 @@ namespace SetmoreSharp
 
             if (response.IsSuccessStatusCode && data != null)
             {
-                var resp = JsonSerializer.Deserialize<ApiResponse<SetmoreTokenResponse>>(data, _jsonSerializerOptions) ?? new ApiResponse<SetmoreTokenResponse>() { Data = new SetmoreTokenResponse() { Error = "Error decoding response" } };
+                var resp = Helpers.DeserialiseResponse<ApiResponse<SetmoreToken>>(data, _jsonSerializerOptions);
+                //var resp = JsonSerializer.Deserialize<ApiResponse<SetmoreToken>>(data, _jsonSerializerOptions); // ?? new ApiResponse<SetmoreToken>() { Data = new SetmoreToken() { Error = "Error deserialising token" } };
 
                 _token = resp.Data;
             }

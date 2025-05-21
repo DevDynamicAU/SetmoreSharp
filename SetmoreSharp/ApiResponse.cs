@@ -7,9 +7,6 @@ namespace SetmoreSharp
         [JsonPropertyName("response")]
         public bool Response { get; set; }
 
-        [JsonPropertyName("msg")]
-        public string Message { get; set; }
-
         [JsonPropertyName("data")]
         public T Data { get; set; }
     }

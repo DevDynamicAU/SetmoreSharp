@@ -1,16 +1,16 @@
 ﻿using SetmoreSharp;
 
-namespace Setmore.Tester.Tests.Service
+namespace Setmore.Tester.Tests.Staff
 {
-    public static partial class ServiceTests
+    public static partial class StaffTests
     {
-        public static async Task GetServicesAsync(SetmoreClient client)
+        public static async Task GetStaffAsync(SetmoreClient client)
         {
-            Program.WriteLine("BEGIN GetAllServicesAsync");
+            Program.WriteLine("BEGIN GetStaffAsync");
 
             try
             {
-                var resp = await client.GetServicesAsync();
+                var resp = await client.GetStaffAsync();
 
                 Program.WriteLine($"{resp?.Count() ?? 0} records found");
                 //Program.CheckResponse(resp, "GetAllServicesAsync", "Id", "found");
@@ -20,7 +20,7 @@ namespace Setmore.Tester.Tests.Service
                 Program.WriteLine($"Error: {ex}");
             }
 
-            Program.WriteLine("END GetAllServicesAsync");
+            Program.WriteLine("END GetStaffAsync");
         }
     }
 }
