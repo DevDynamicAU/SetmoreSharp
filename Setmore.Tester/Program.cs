@@ -52,7 +52,8 @@ namespace Setmore.Tester
             {
                 //await ServiceTestsAsync();
                 //await StaffTestsAsync();
-                await TimeSlotTestsAsync();
+                //await TimeSlotTestsAsync();
+                await CustomerTestsAsync();
 
                 WriteLine("End");
             }

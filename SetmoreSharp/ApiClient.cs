@@ -20,7 +20,8 @@ namespace SetmoreSharp
         protected async Task<T> GetAsync<T>(Request request) where T : class
         {
             var client = _httpClientFactory.CreateClient(ClientName);
-            var message = new HttpRequestMessage(HttpMethod.Get, request.GetUrl());
+            var url = request.GetUrl();
+            var message = new HttpRequestMessage(HttpMethod.Get, url);
 
             //var response = await client.GetAsync(request.GetUrl(), HttpCompletionOption.ResponseHeadersRead);
             var response = await client.SendAsync(message, HttpCompletionOption.ResponseHeadersRead);

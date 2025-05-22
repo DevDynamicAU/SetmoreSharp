@@ -49,7 +49,7 @@
             string query = string.Empty;
             string sep = "";
 
-            if (!url.EndsWith("/") && !url.Contains("?"))
+            if (!url.EndsWith("/") && !url.Contains("?") && !parameters.Any())
             {
                 url += "/";
             }
